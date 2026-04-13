@@ -2,14 +2,14 @@
 name = "miden-faucet-mint-tx"
 # authors.workspace      = true
 # description            = "Miden faucet's mint transaction script"
-# edition.workspace      = true
+edition.workspace      = true
 # homepage.workspace     = true
 # keywords               = ["mint", "miden", "faucet"]
 # license.workspace      = true
 # readme                 = "README.md"
 # repository.workspace   = true
 # rust-version.workspace = true
-# version.workspace      = true
+version.workspace      = true
 
 [lib]
 # Build this crate as a self-contained, C-style dynamic library
