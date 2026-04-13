@@ -1,21 +1,27 @@
 [package]
 name = "miden-faucet-mint-tx"
-authors.workspace      = true
-description            = "Miden faucet's mint transaction script"
-edition.workspace      = true
-homepage.workspace     = true
-keywords               = ["mint", "miden", "faucet"]
-license.workspace      = true
-readme                 = "README.md"
-repository.workspace   = true
-rust-version.workspace = true
-version.workspace      = true
+# authors.workspace      = true
+# description            = "Miden faucet's mint transaction script"
+# edition.workspace      = true
+# homepage.workspace     = true
+# keywords               = ["mint", "miden", "faucet"]
+# license.workspace      = true
+# readme                 = "README.md"
+# repository.workspace   = true
+# rust-version.workspace = true
+# version.workspace      = true
 
 [lib]
+# Build this crate as a self-contained, C-style dynamic library
+# This is required to emit the proper Wasm module type
 crate-type = ["cdylib"]
 
 [dependencies]
-miden = { workspace = true }
+# Miden SDK consists of a stdlib (intrinsic functions for VM ops, stdlib functions and types)
+# and transaction kernel API for the Miden rollup
+
+miden = { version = "0.11" }
+
 
 [build-dependencies]
 blake3 = "1"
@@ -25,3 +31,12 @@ package = "miden:mint-tx"
 
 [package.metadata.miden]
 project-kind = "transaction-script"
+
+# # Miden dependencies for cargo-miden build/linking
+# [package.metadata.miden.dependencies]
+# # TODO: Add your account contract dependencies here
+# "miden:add-contract" = { path = "../add-contract"}
+
+# [package.metadata.component.target.dependencies]
+# # TODO: Add your account contract WIT dependencies here
+# "miden:add-contract" = { path = "../add-contract/target/generated-wit/" }

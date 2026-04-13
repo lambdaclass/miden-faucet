@@ -1,6 +1,8 @@
 #![no_std]
 #![feature(alloc_error_handler)]
 
+// extern crate alloc;
+
 use miden::intrinsics::advice::adv_push_mapvaln;
 use miden::tx::update_expiration_block_delta;
 use miden::{
@@ -46,12 +48,13 @@ const fn parse_u64(bytes: &[u8]) -> u64 {
 }
 
 #[tx_script]
-fn run(arg: Word) {
+fn run(mut arg: Word) {
     update_expiration_block_delta(Felt::from_u32(10));
 
     // Push note data from advice map onto the advice stack.
     let num_felts = adv_push_mapvaln(arg);
     let num_felts_u64 = num_felts.as_canonical_u64();
+    // assert_eq!(Felt::from_u32((num_felts_u64 % 7) as u32), felt!(0));
 
     // Pop the data from the advice stack into memory.
     let num_words = Felt::new((num_felts_u64 + 3) / 4);
@@ -60,7 +63,7 @@ fn run(arg: Word) {
     let num_notes = num_felts_u64 as usize / NOTE_ARGS_SIZE;
 
     for idx in 0..num_notes {
-        let start = idx * NOTE_ARGS_SIZE;
+       let start = idx * NOTE_ARGS_SIZE;
         let recipient = Recipient::from(Word::from([
             input[start],
             input[start + 1],
